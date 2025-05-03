@@ -1,0 +1,4 @@
+/metro_routes_data/*.exe
+/metro_routes_data/*.csv
+/metro_routes_data/test*.txt
+*.xlsx

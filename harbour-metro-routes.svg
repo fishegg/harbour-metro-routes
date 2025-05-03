@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="86px"
+   height="86px"
+   viewBox="0 0 86 86"
+   enable-background="new 0 0 86 86"
+   xml:space="preserve"
+   id="svg22"
+   sodipodi:docname="harbour-metro-routes.svg"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   inkscape:export-filename="D:\project\harbour-metro-routes\icons\172x172\harbour-metro-routes.png"
+   inkscape:export-xdpi="193.34895"
+   inkscape:export-ydpi="193.34895"><metadata
+   id="metadata28"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs26"><linearGradient
+     id="linearGradient2941"
+     osb:paint="solid"><stop
+       style="stop-color:#edcf3d;stop-opacity:1;"
+       offset="0"
+       id="stop2939" /></linearGradient></defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1017"
+   id="namedview24"
+   showgrid="false"
+   inkscape:zoom="4.9360465"
+   inkscape:cx="35.149909"
+   inkscape:cy="35.474463"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1"
+   inkscape:document-rotation="0" />
+<g
+   id="Layer_2"
+   display="none">
+</g>
+<g
+   id="Layer_1">
+	
+		<radialGradient
+   id="SVGID_1_"
+   cx="43.2205"
+   cy="43.2344"
+   r="42.7984"
+   gradientTransform="matrix(0.9977 0 0 0.9977 -0.1211 -0.135)"
+   gradientUnits="userSpaceOnUse">
+		<stop
+   offset="0"
+   style="stop-color:#868688"
+   id="stop3" />
+		<stop
+   offset="1"
+   style="stop-color:#DADADA"
+   id="stop5" />
+	</radialGradient>
+	<path
+   fill="url(#SVGID_1_)"
+   d="m 84.277,0.3 c 0,0 -39.494,0 -41.277,0 C 19.417,0.3 0.3,19.417 0.3,43 c 0,1.783 0,41.277 0,41.277 0,0.786 0.637,1.423 1.423,1.423 h 47.444 35.109 c 0.786,0 1.423,-0.637 1.423,-1.423 V 49.168 1.723 C 85.7,0.937 85.063,0.3 84.277,0.3 Z"
+   id="path8"
+   style="mix-blend-mode:normal;fill:#f9f9f9;fill-opacity:1;opacity:1"
+   inkscape:export-xdpi="193.34895"
+   inkscape:export-ydpi="193.34895" />
+	
+	
+		<linearGradient
+   id="SVGID_2_"
+   gradientUnits="userSpaceOnUse"
+   x1="16.9061"
+   y1="80.0942"
+   x2="69.0939"
+   y2="27.9064"
+   gradientTransform="matrix(1 0 0 1 0 -3.000000e-004)">
+		<stop
+   offset="0"
+   style="stop-color:#edcf3d;stop-opacity:1"
+   id="stop12" />
+		<stop
+   offset="1"
+   style="stop-color:#2367A1"
+   id="stop14" />
+	</linearGradient>
+	
+	
+<path
+   style="fill:#ffff00;stroke:#edcf3d;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="M 5.4546909,34.990825 H 79.431057"
+   id="path4473" /><text
+   xml:space="preserve"
+   style="font-size:20.8495px;line-height:1.25;font-family:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:63.4215;fill:#000000;"
+   x="16.762712"
+   y="22.489103"
+   id="text4477"
+   transform="matrix(0.63950322,0,0,0.63950322,30.558339,62.385628)"><tspan
+     x="16.762712"
+     y="22.489103"><tspan
+       style="font-size:20.8495px;fill:#000000">公园前</tspan></tspan></text><path
+   style="fill:#ffff00;stroke:#00679e;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="M 32.351936,81.280291 V 7.3039248"
+   id="path4473-6" /><rect
+   style="fill:#ffffff;fill-opacity:1;stroke:#edcf3d;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   id="rect4467"
+   width="35"
+   height="17.5"
+   x="14.586208"
+   y="26.240822"
+   ry="8.75"
+   rx="8.75" /><path
+   style="fill:#ffff00;stroke:#edcf3d;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="m 32.086208,26.245063 c 0,17.491524 0,17.491524 0,17.491524"
+   id="path4489" /><text
+   xml:space="preserve"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;stroke-width:0.999997"
+   x="21.824306"
+   y="40.143803"
+   id="text4493"><tspan
+     sodipodi:role="line"
+     id="tspan4491"
+     x="21.824306"
+     y="40.143803"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.999997">1</tspan></text><text
+   xml:space="preserve"
+   style="font-size:16px;line-height:1.25;font-family:sans-serif;writing-mode:lr-tb;stroke-width:0.999997"
+   x="32.838814"
+   y="40.033127"
+   id="text4497"><tspan
+     sodipodi:role="line"
+     id="tspan4495"
+     x="32.838814"
+     y="40.033127"
+     style="font-size:13.3333px;stroke-width:0.999997">09</tspan></text><rect
+   style="fill:#ffffff;stroke:#00679e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   id="rect4467-9"
+   width="35"
+   height="17.5"
+   x="14.586208"
+   y="45.734821"
+   ry="8.75"
+   rx="8.75" /><path
+   style="fill:#0000ff;stroke:#00679e;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="m 32.086208,45.739062 c 0,17.491524 0,17.491524 0,17.491524"
+   id="path4489-4" /><text
+   xml:space="preserve"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;stroke-width:0.999997"
+   x="21.824306"
+   y="59.637802"
+   id="text4493-3"><tspan
+     sodipodi:role="line"
+     id="tspan4491-1"
+     x="21.824306"
+     y="59.637802"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.999997">2</tspan></text><text
+   xml:space="preserve"
+   style="font-size:16px;line-height:1.25;font-family:sans-serif;writing-mode:lr-tb;stroke-width:0.999997"
+   x="32.838818"
+   y="59.52713"
+   id="text4497-3"><tspan
+     sodipodi:role="line"
+     id="tspan4495-7"
+     x="32.838818"
+     y="59.52713"
+     style="font-size:13.3333px;stroke-width:0.999997">13</tspan></text></g>
+</svg>

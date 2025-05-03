@@ -1,0 +1,23 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-metro-routes
+Exec=harbour-metro-routes
+Name=Metro Routes
+# translation example:
+# your app name in German locale (de)
+#
+# Remember to comment out the following line, if you do not want to use
+# a different app name in German locale (de).
+#Name[de]=harbour-metro-routes
+Name[zh_CN]=地铁查询
+Name[zh_TW]=地铁查询
+Name[zh_HK]=地铁查询
+
+[X-Sailjail]
+# Replace with your organization as a reverse domain name
+OrganizationName=fishegg
+# ApplicationName does not have to be identical to Name
+ApplicationName=metro-routes
+# Add the required permissions here
+Permissions=Documents
