@@ -1,9 +1,11 @@
 import openpyxl
 
 # book_file=input("input xlsx file name:")
-book_file="D:\\project\\untitled1-master\\testdata\\新建 Microsoft Excel 工作表.xlsx"
+#book_file="D:\\project\\untitled1-master\\testdata\\新建 Microsoft Excel 工作表.xlsx"
+book_file="D:\\project\\untitled1-master\\testdata\\工作簿1.xlsx"
 wb=openpyxl.load_workbook(book_file)
-sheet=wb["Sheet1"]
+# sheet=wb["Sheet1"]
+sheet=wb["Sheet4"]
 while(True):
 	option=int(input("1=fill with 0,2=fill line grids,3=fill interchange grids,-1=quit:"))
 	if(option != 1 and option != 2 and option != 3):

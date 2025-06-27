@@ -59,7 +59,7 @@ Page {
             }
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "1.1"
+                text: "1.3"
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter

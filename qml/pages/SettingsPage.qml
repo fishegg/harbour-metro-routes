@@ -119,7 +119,7 @@ Dialog {
                 menu: ContextMenu {
                     MenuItem {
                         text: qsTr("Guangzhou/Foshan")
-                        onClicked: tf_database.text = "/usr/share/harbour-metro-routes/guangzhou_foshan_20241228.sqlite"
+                        onClicked: tf_database.text = "/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite"
                     }
                     MenuItem {
                         text: qsTr("Customized database")

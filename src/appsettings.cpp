@@ -49,7 +49,7 @@ void AppSettings::set_database(const QString &database) {
 }
 
 QString AppSettings::get_database() {
-    return settings->value(QString("application/database"),QString("/usr/share/harbour-metro-routes/guangzhou_foshan_20241228.sqlite")).toString();
+    return settings->value(QString("application/database"),QString("/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite")).toString();
 //    return settings->value(QString("application/database"),QString("")).toString();
 }
 
