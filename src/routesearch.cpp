@@ -298,7 +298,7 @@ void RouteSearch::dijkstra(Graphm *G, const int &s, const int &p, const int &mul
                     if(Distance[w] > (Distance[v] + replaced_weight)){
                         Distance[w] = Distance[v] + replaced_weight;
                         From[w] = v;
-//                        qDebug() << From[w] << v;
+//                        qDebug() << "From[" << w << "]" << From[w] << "v" << v;
                     }
                 }
             }

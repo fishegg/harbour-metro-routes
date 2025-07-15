@@ -104,6 +104,7 @@ ListItem {
             Label {
                 id: namelabel
                 width: parent.width
+                wrapMode: Text.Wrap
                 color: ((action !== StationModel.OnTrain &&
                         action !== StationModel.GetOff &&
                         action !== StationModel.Exit &&

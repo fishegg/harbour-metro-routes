@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.2, 2025-06-27T23:07:48. -->
+<!-- Written by QtCreator 4.15.2, 2025-07-15T15:50:22. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -8,7 +8,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">2</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -94,11 +94,11 @@
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Mer.Device.Type</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-armv7hl (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-armv7hl (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-armv7hl.default</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-aarch64.default</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="int" key="EnableQmlDebugging">0</value>
@@ -107,8 +107,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -164,8 +164,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -222,8 +222,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -432,9 +432,9 @@
   <variable>ProjectExplorer.Project.Target.1</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Mer.Device.Type</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-aarch64.default</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-armv7hl (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-armv7hl (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-armv7hl.default</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -445,8 +445,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -502,8 +502,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -560,8 +560,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\project\build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/project/build-harbour-metro-routes-SailfishOS_5_0_0_62_armv7hl_in_Sailfish_SDK_Build_Engine-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>

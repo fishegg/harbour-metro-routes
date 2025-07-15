@@ -305,6 +305,7 @@ int StationModel::getroutelistdata()
         {
             return Error;
         }
+        qDebug() << "routestationlist:" << routestationlist.size() << endl;
         while(!routestationlist.isEmpty())
         {
             i++;

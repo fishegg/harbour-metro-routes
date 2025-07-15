@@ -1,7 +1,7 @@
 Name:       harbour-metro-routes
 
 Summary:    非官方地铁路线查询Unofficial metro routes query
-Version:    1.3
+Version:    1.5
 Release:    1
 License:    LICENSE
 URL:        http://example.org/

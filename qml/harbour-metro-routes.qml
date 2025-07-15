@@ -10,6 +10,8 @@ ApplicationWindow {
     allowedOrientations: defaultAllowedOrientations
     _defaultPageOrientations: Orientation.All
 
+    property string version: "1.5"
+
     property int load_status: StationModel.Null
     //stationmodel.getfulllistdata()
     //load_status = stationmodel.getmapdata()

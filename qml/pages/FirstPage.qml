@@ -52,10 +52,10 @@ Page {
     property int preference: 1
     property int multiple: 10
 
-//    property string version: "1"
+//    property string version: "1.3"
     property string conf_version: settings.get_version()
     property bool accepted: settings.get_accepted_status()
-//    property bool updated: settings.is_updated(conf_version,version)
+    property bool updated: settings.is_updated(conf_version,version)
 
     AppSettings {
         id: settings
@@ -63,13 +63,14 @@ Page {
 
     Timer {
         interval: 50
-        running: accepted ? false : true
+        running: accepted && !updated ? false : true
         repeat: true
         triggeredOnStart: true
         onTriggered: {
             console.log("accepted"+accepted)
             stop()
             settings.clean_conf()
+            settings.set_version(version)
             console.log("accepted "+accepted)
             pageStack.push(Qt.resolvedUrl("DisclaimerDialog.qml"))
         }
