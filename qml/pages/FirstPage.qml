@@ -86,6 +86,8 @@ Page {
             console.log("settings accepted")
             stationmodel.close_current_database()
             stationmodel.open_current_database()
+            from_number = -1
+            to_number = -1
             header.title = stationmodel.getcity()
         })
     }
