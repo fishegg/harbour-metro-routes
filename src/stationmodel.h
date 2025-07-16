@@ -72,6 +72,9 @@ public:
 
     StationModel(QObject *parent = 0);
     ~StationModel();
+    Q_INVOKABLE void open_current_database();
+    Q_INVOKABLE void open_selected_database(const QString &db_name);
+    Q_INVOKABLE void close_current_database();
     Q_INVOKABLE int getfulllistdata();
     Q_INVOKABLE int getmapdata();
     Q_INVOKABLE int getroutelistdata();
@@ -104,7 +107,7 @@ private:
     QLocale locale = QLocale::system();
     QString lang = locale.name().mid(0,2);
     AppSettings settings;
-    int station_name_language = settings.get_currentIndex_language();
+    int station_name_language;
 };
 
 #endif // STATIONMODEL_H

@@ -17,7 +17,7 @@ DatabaseConnector::~DatabaseConnector()
 bool DatabaseConnector::openconnection()
 {
     db = QSqlDatabase::addDatabase("QSQLITE","DatabaseConnector");
-    QString database = settings.get_database();
+    QString database = settings.get_db_name();
     db.setDatabaseName(database);
 //    db.setDatabaseName("/usr/share/harbour-metro-routes/guangzhou_foshan_20241228.sqlite");
 //    db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)+"/guangzhou_foshan_20241228.sqlite");

@@ -38,6 +38,8 @@ Dialog {
 
     Component.onCompleted: {
         //originalmodel.init()
+//        stationmodel.open_current_database()
+//        linemodel.open_current_database()
         listmodel.update()
         lineslistmodel.update()
         searchfield.forceActiveFocus()
@@ -52,7 +54,7 @@ Dialog {
         id: listmodel
 
         function update() {
-            //console.log("count"+stationmodel.rowCount())
+            console.log("count"+stationmodel.rowCount())
             listview.model = undefined
             clear()
             for (var i=0; i<stationmodel.fulllistrowcount(); i++) {
@@ -94,7 +96,7 @@ Dialog {
 //            }
 //        }
         function update() {
-//            console.log("update"+linemodel.rowCount())
+            console.log("update"+linemodel.rowCount())
             clear()
             for(var i=0; i<linemodel.rowCount(); i++){
                 append({"line_name": linemodel.data(i,LineModel.LineNameRole),

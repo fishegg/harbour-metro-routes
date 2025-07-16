@@ -37,6 +37,9 @@ public:
 
     LineModel(QObject *parent = 0);
     ~LineModel();
+    Q_INVOKABLE void open_current_database();
+    Q_INVOKABLE void open_selected_database(const QString &db_name);
+    Q_INVOKABLE void close_current_database();
     Q_INVOKABLE int get_full_list();
     void add_line(const Line &line);
     void reset_model();

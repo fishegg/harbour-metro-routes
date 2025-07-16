@@ -174,10 +174,6 @@
         <translation>系统语言</translation>
     </message>
     <message>
-        <source>Please restart app after change settings.</source>
-        <translation>更改设置之后请重新启动应用程序</translation>
-    </message>
-    <message>
         <source>Tutorial</source>
         <translation>教程</translation>
     </message>
@@ -192,6 +188,18 @@
     <message>
         <source>Shenzhen</source>
         <translation>深圳</translation>
+    </message>
+    <message>
+        <source>Selected database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If database information displayed, the database should be available.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

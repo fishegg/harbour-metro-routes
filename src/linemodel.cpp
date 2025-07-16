@@ -2,7 +2,7 @@
 
 LineModel::LineModel(QObject *parent) : QAbstractListModel(parent){
     db = QSqlDatabase::addDatabase("QSQLITE", "Line");
-    QString database = settings.get_database();
+    QString database = settings.get_db_name();
     db.setDatabaseName(database);
     if(db.open()){
         qDebug() << "line model database opened" << endl;
@@ -24,9 +24,52 @@ LineModel::~LineModel(){
     qDebug() << "line model database closed" << endl;
 }
 
+void LineModel::open_current_database(){
+    db = QSqlDatabase::addDatabase("QSQLITE", "Line");
+    QString db_name = settings.get_db_name();
+    qDebug() << "line model db_name" << db_name;
+    db.setDatabaseName(db_name);
+    if(db.open()){
+        qDebug() << "line model database opened" << endl;
+    }
+    if(station_name_language == 1){
+        lang = "zh";
+    }
+    else if (station_name_language == 2){
+        lang = "en";
+    }
+    else{
+        lang = locale.name().mid(0,2);
+    }
+    get_full_list();
+}
+
+void LineModel::open_selected_database(const QString &db_name){
+    db = QSqlDatabase::addDatabase("QSQLITE", "Line");
+    db.setDatabaseName(db_name);
+    if(db.open()){
+        qDebug() << "line model database opened" << endl;
+    }
+    if(station_name_language == 1){
+        lang = "zh";
+    }
+    else if (station_name_language == 2){
+        lang = "en";
+    }
+    else{
+        lang = locale.name().mid(0,2);
+    }
+    get_full_list();
+}
+
+void LineModel::close_current_database(){
+    db.close();
+}
+
 int LineModel::get_full_list(){
     if(db.open()){
         qDebug() << "get full list start" << endl;
+        lines_list.clear();
         int line_id = 0, towards_little, towards_large;
         QString line_name_zh, line_name_en, line_colour;
         bool is_circle;

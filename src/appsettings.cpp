@@ -4,17 +4,32 @@
 
 AppSettings::AppSettings(QObject* parent) {
     settings = new QSettings(settingsPath, QSettings::NativeFormat);
+}
 
+AppSettings::~AppSettings(){
+    db.close();
+}
+
+void AppSettings::open_current_database(){
     db = QSqlDatabase::addDatabase("QSQLITE", "Settings");
-    QString database = get_database();
-    db.setDatabaseName(database);
+    QString db_name = get_db_name();
+    db.setDatabaseName(db_name);
     if(db.open()){
         qDebug() << "settings database opened" << endl;
     }
     db_test = QSqlDatabase::addDatabase("QSQLITE", "Test");
 }
 
-AppSettings::~AppSettings(){
+void AppSettings::open_selected_database(const QString &db_name){
+    db = QSqlDatabase::addDatabase("QSQLITE", "Settings");
+    db.setDatabaseName(db_name);
+    if(db.open()){
+        qDebug() << "settings database opened" << endl;
+    }
+    db_test = QSqlDatabase::addDatabase("QSQLITE", "Test");
+}
+
+void AppSettings::close_current_database(){
     db.close();
 }
 
@@ -44,11 +59,11 @@ bool AppSettings::is_updated(const QString &conf_version, const QString &curr_ve
     return conf_version == curr_version ? false : true;
 }
 
-void AppSettings::set_database(const QString &database) {
-    settings->setValue(QString("application/database"),database);
+void AppSettings::set_db_name(const QString &db_name) {
+    settings->setValue(QString("application/database"),db_name);
 }
 
-QString AppSettings::get_database() {
+QString AppSettings::get_db_name() {
     return settings->value(QString("application/database"),QString("/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite")).toString();
 //    return settings->value(QString("application/database"),QString("")).toString();
 }

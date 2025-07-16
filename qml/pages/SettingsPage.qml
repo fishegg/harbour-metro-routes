@@ -7,9 +7,14 @@ Dialog {
         id: settings
     }
 
-    property var database: settings.get_database()
+    property var db_name
 
     SilicaFlickable {
+        Component.onCompleted: {
+            db_name = settings.get_db_name()
+            settings.close_current_database()
+        }
+
         anchors.fill: parent
         contentHeight: column.height
         Column {
@@ -20,6 +25,7 @@ Dialog {
             }
 
             SectionHeader{
+                id: sh_using_database
                 text: qsTr("Currently using database")
             }
 
@@ -36,13 +42,14 @@ Dialog {
             }
 
             Label {
+                id: lb_database_city
                 anchors {
                     left: parent.left
                     right: parent.right
                     leftMargin: Theme.horizontalPageMargin
                     rightMargin: Theme.horizontalPageMargin
                 }
-                text: settings.get_database_city(database)
+                text: settings.get_database_city()
             }
 
             Label {
@@ -58,6 +65,7 @@ Dialog {
             }
 
             Label {
+                id: lb_database_name
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -66,7 +74,7 @@ Dialog {
                 }
                 width: parent.width - Theme.horizontalPageMargin * 2
                 wrapMode: Text.WordWrap
-                text: settings.get_database_name(database)
+                text: settings.get_database_name()
             }
 
             Label {
@@ -82,13 +90,14 @@ Dialog {
             }
 
             Label {
+                id: lb_database_version
                 anchors {
                     left: parent.left
                     right: parent.right
                     leftMargin: Theme.horizontalPageMargin
                     rightMargin: Theme.horizontalPageMargin
                 }
-                text: settings.get_database_version(database)
+                text: settings.get_database_version()
             }
 
             SectionHeader{
@@ -119,14 +128,23 @@ Dialog {
                 menu: ContextMenu {
                     MenuItem {
                         text: qsTr("Guangzhou/Foshan")
-                        onClicked: tf_database.text = "/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite"
+                        onClicked: db_name = "/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite"
                     }
                     MenuItem {
                         text: qsTr("Customized database")
+                        onClicked: db_name = "/home/defaultuser/Documents/"
                     }
                     MenuItem {
                         text: qsTr("Shenzhen")
-                        onClicked: tf_database.text = "/usr/share/harbour-metro-routes/shenzhen_20241228.sqlite"
+                        onClicked: db_name = "/usr/share/harbour-metro-routes/shenzhen_20241228.sqlite"
+                    }
+                    onActivated: {
+                        sh_using_database.text = qsTr("Selected database")
+                        settings.open_selected_database(db_name)
+                        lb_database_city.text = settings.get_database_city()
+                        lb_database_name.text = settings.get_database_name()
+                        lb_database_version.text = settings.get_database_version()
+                        settings.close_current_database()
                     }
                 }
             }
@@ -146,43 +164,23 @@ Dialog {
 //            }
             TextField {
                 id: tf_database
-                text: database
+                text: db_name
                 readOnly: cb_database.currentIndex !== 1 ? true : false
-                visible: true
             }
-//            Button {
-//                id: bt_database
-//                anchors.left: parent.left
-//                anchors.leftMargin: Theme.paddingMedium
-//                text: qsTr("Test Database")
-//                visible: cb_database.currentIndex > 0 ? true : false
-//                onClicked: {
-//                    lb_database_test.text = settings.test_database(tf_database.text)
-//                }
-//            }
-//            Label {
-//                id: lb_database_test
-//                anchors {
-//                    left: parent.left
-//                    right: parent.right
-//                    leftMargin: Theme.paddingMedium
-//                    rightMargin: Theme.paddingMedium
-//                }
-//                wrapMode: Text.WordWrap
-//                text: ""
-//                visible: cb_database.currentIndex > 0 ? true : false
-//            }
-//            Label {
-//                anchors {
-//                    left: parent.left
-//                    right: parent.right
-//                    leftMargin: Theme.paddingMedium
-//                    rightMargin: Theme.paddingMedium
-//                }
-//                wrapMode: Text.WordWrap
-//                text: qsTr("If database information displayed, the database should be available.")
-//                visible: cb_database.currentIndex > 0 ? true : false
-//            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: cb_database.currentIndex === 1
+                text: qsTr("Test database")
+                onClicked: {
+                    settings.open_selected_database(tf_database.text)
+                    lb_database_city.text = settings.get_database_city()
+                    lb_database_name.text = settings.get_database_name()
+                    lb_database_version.text = settings.get_database_version()
+                    settings.close_current_database()
+                }
+            }
+
             Label {
                 anchors {
                     left: parent.left
@@ -191,8 +189,19 @@ Dialog {
                     rightMargin: Theme.paddingMedium
                 }
                 wrapMode: Text.WordWrap
-                text: qsTr("Please restart app after change settings.")
+                text: qsTr("If database information displayed, the database should be available.")
+                visible: cb_database.currentIndex === 1
             }
+//            Label {
+//                anchors {
+//                    left: parent.left
+//                    right: parent.right
+//                    leftMargin: Theme.paddingMedium
+//                    rightMargin: Theme.paddingMedium
+//                }
+//                wrapMode: Text.WordWrap
+//                text: qsTr("Please restart app after change settings.")
+//            }
 
             SectionHeader {
                 text: qsTr("Tutorial")
@@ -216,7 +225,7 @@ Dialog {
     }
 
     onAccepted: {
-        settings.set_database(tf_database.text)
+        settings.set_db_name(tf_database.text)
         settings.set_currentIndex(cb_database.currentIndex)
         settings.set_currentIndex_language(cb_language.currentIndex)
     }

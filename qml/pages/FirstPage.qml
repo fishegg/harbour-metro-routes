@@ -61,6 +61,10 @@ Page {
         id: settings
     }
 
+//    StationModel {
+//        id: stationmodel
+//    }
+
     Timer {
         interval: 50
         running: accepted && !updated ? false : true
@@ -74,6 +78,16 @@ Page {
             console.log("accepted "+accepted)
             pageStack.push(Qt.resolvedUrl("DisclaimerDialog.qml"))
         }
+    }
+
+    function opensettingsdialog() {
+        var dialog = pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+        dialog.accepted.connect(function() {
+            console.log("settings accepted")
+            stationmodel.close_current_database()
+            stationmodel.open_current_database()
+            header.title = stationmodel.getcity()
+        })
     }
 
     function openlistdialog(f, t, fnu, tnu, fna, tna, fi, ti) {
@@ -152,6 +166,8 @@ Page {
     Component.onCompleted: {
         //console.log("count"+stationmodel.rowCount())
         //load_status = stationmodel.getdata()
+        stationmodel.open_current_database()
+        header.title = stationmodel.getcity()
     }
 
     //stationmodel.onDataChanged: console.log("data changed")
@@ -190,7 +206,8 @@ Page {
             MenuItem {
 //                text: qsTr("设置")
                 text: qsTr("Settings")
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+//                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+                onClicked: opensettingsdialog()
             }
             MenuItem {
 //                text: qsTr("软件信息")
@@ -268,7 +285,7 @@ Page {
             //bottomPadding: spacing
             PageHeader {
                 id: header
-                title: stationmodel.getcity()
+//                title: stationmodel.getcity()
             }
 
             Row {

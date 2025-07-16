@@ -5,6 +5,7 @@
 StationModel::StationModel(QObject *parent) : QAbstractListModel(parent)
 {
     //getdata();
+    /*station_name_language = settings.get_currentIndex_language();
     if(station_name_language == 1){
         lang = "zh";
     }
@@ -15,26 +16,26 @@ StationModel::StationModel(QObject *parent) : QAbstractListModel(parent)
         lang = locale.name().mid(0,2);
     }
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QString database = settings.get_database();
-    db.setDatabaseName(database);
+    QString database = settings.get_db_name();
+    db.setDatabaseName(database);*/
 //    db.setDatabaseName("/usr/share/harbour-metro-routes/guangzhou_foshan_20241228.sqlite");
 //    db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)+"/guangzhou_foshan_20241228.sqlite");
-    if(db.open())
+    /*if(db.open())
     {
         qDebug() << "connection opened" << endl;
         QSqlQuery query("SELECT city_zh, name_zh, version, station_count FROM data_information");
         query.next();
-        station_count = query.value("station_count").toInt();
+        station_count = query.value("station_count").toInt();*/
 //        station_count = query.value(5).toInt();
-        qDebug() << "station count" << station_count;
+        /*qDebug() << "station count" << station_count;*/
 
         //station_index = new int[station_count];
         //for(int i=0;i<station_count;i++)
             //station_index[i]=-1;
-        station_index.fill(-1, station_count);
+        /*station_index.fill(-1, station_count);
     }
     getfulllistdata();
-    getmapdata();
+    getmapdata();*/
 }
 
 StationModel::~StationModel()
@@ -45,12 +46,71 @@ StationModel::~StationModel()
     //station_index = nullptr;
 }
 
+void StationModel::open_current_database(){
+    station_name_language = settings.get_currentIndex_language();
+    if(station_name_language == 1){
+        lang = "zh";
+    }
+    else if (station_name_language == 2){
+        lang = "en";
+    }
+    else{
+        lang = locale.name().mid(0,2);
+    }
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString db_name = settings.get_db_name();
+//    qDebug() << "db_name" << db_name << endl;
+    db.setDatabaseName(db_name);
+    qDebug() << db.databaseName();
+    if(db.open()){
+        qDebug() << "stationmodel current database opened" << endl;
+        QSqlQuery query("SELECT city_zh, name_zh, version, station_count FROM data_information");
+        query.next();
+        station_count = query.value("station_count").toInt();
+        qDebug() << "station count" << station_count;
+        station_index.fill(-1, station_count);
+    }
+    getfulllistdata();
+    getmapdata();
+}
+
+void StationModel::open_selected_database(const QString &db_name){
+    station_name_language = settings.get_currentIndex_language();
+    if(station_name_language == 1){
+        lang = "zh";
+    }
+    else if (station_name_language == 2){
+        lang = "en";
+    }
+    else{
+        lang = locale.name().mid(0,2);
+    }
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    qDebug() << "db_name" << db_name;
+    db.setDatabaseName(db_name);
+    if(db.open()){
+        qDebug() << "stationmodel selected database opened";
+        QSqlQuery query("SELECT city_zh, name_zh, version, station_count FROM data_information");
+        query.next();
+        station_count = query.value("station_count").toInt();
+        qDebug() << "station count" << station_count;
+        station_index.fill(-1, station_count);
+    }
+    getfulllistdata();
+    getmapdata();
+}
+
+void StationModel::close_current_database(){
+    db.close();
+}
+
 int StationModel::getfulllistdata()
 {
     //int i;//, j;
     if(db.open())
     {
-        //qDebug() << "connection opened" << endl;
+        qDebug() << "get full list connection opened" << endl;
+        fullstationlist.clear();
         int number = 0, line_count, interchange[5], line_id, unpaid_interchange[5];
         QString station_name, station_number, line_name, line_colour;
         //QString serial_distance;
@@ -204,7 +264,7 @@ int StationModel::getmapdata()
     int i;//, j;
     if(db.open())
     {
-        //qDebug() << "connection opened";
+        qDebug() << "get map connection opened";
         qDebug() << "station count" << station_count;
 
         if(station_count == 0)

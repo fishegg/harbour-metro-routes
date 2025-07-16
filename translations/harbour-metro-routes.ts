@@ -174,10 +174,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please restart app after change settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tutorial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -191,6 +187,18 @@
     </message>
     <message>
         <source>Shenzhen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If database information displayed, the database should be available.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
