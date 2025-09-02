@@ -113,7 +113,7 @@ Dialog {
                         text: qsTr("System Language")
                     }
                     MenuItem {
-                        text: "简体中文"
+                        text: "中文"
                     }
                     MenuItem {
                         text: "English or other language"
@@ -128,7 +128,7 @@ Dialog {
                 menu: ContextMenu {
                     MenuItem {
                         text: qsTr("Guangzhou/Foshan")
-                        onClicked: db_name = "/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite"
+                        onClicked: db_name = "/usr/share/harbour-metro-routes/guangzhou_foshan_20251228.sqlite"
                     }
                     MenuItem {
                         text: qsTr("Customized database")

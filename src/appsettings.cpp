@@ -64,7 +64,7 @@ void AppSettings::set_db_name(const QString &db_name) {
 }
 
 QString AppSettings::get_db_name() {
-    return settings->value(QString("application/database"),QString("/usr/share/harbour-metro-routes/guangzhou_foshan_20250629.sqlite")).toString();
+    return settings->value(QString("application/database"),QString("/usr/share/harbour-metro-routes/guangzhou_foshan_20251228.sqlite")).toString();
 //    return settings->value(QString("application/database"),QString("")).toString();
 }
 

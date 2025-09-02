@@ -10,7 +10,7 @@ ApplicationWindow {
     allowedOrientations: defaultAllowedOrientations
     _defaultPageOrientations: Orientation.All
 
-    property string version: "1.5"
+    property string version: "1.7"
 
     property int load_status: StationModel.Null
     //stationmodel.getfulllistdata()

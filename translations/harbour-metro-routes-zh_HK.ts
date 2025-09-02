@@ -191,15 +191,15 @@
     </message>
     <message>
         <source>Selected database</source>
-        <translation type="unfinished"></translation>
+        <translation>选中的数据库</translation>
     </message>
     <message>
         <source>Test database</source>
-        <translation type="unfinished"></translation>
+        <translation>测试数据库</translation>
     </message>
     <message>
         <source>If database information displayed, the database should be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果显示数据库信息，那么这个数据库应该可用</translation>
     </message>
 </context>
 <context>

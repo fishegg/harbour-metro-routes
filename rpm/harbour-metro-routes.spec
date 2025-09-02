@@ -1,7 +1,7 @@
 Name:       harbour-metro-routes
 
 Summary:    非官方地铁路线查询Unofficial metro routes query
-Version:    1.5
+Version:    1.7
 Release:    1
 License:    LICENSE
 URL:        http://example.org/
@@ -39,5 +39,5 @@ desktop-file-install --delete-original         --dir %{buildroot}%{_datadir}/app
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/%{name}/guangzhou_foshan_20250629.sqlite
+%{_datadir}/%{name}/guangzhou_foshan_20251228.sqlite
 %{_datadir}/%{name}/shenzhen_20241228.sqlite
