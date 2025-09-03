@@ -25,13 +25,13 @@ while(True):
 			wb.save(book_file)
 		elif(option==2):
 			terminal1=int(input("terminal 1:"))
-			if(terminal1==-1 or terminal2==-1 or distance==-1):
+			if(terminal1==-1):
 				break
 			terminal2=int(input("terminal 2:"))
-			if(terminal1==-1 or terminal2==-1 or distance==-1):
+			if(terminal2==-1):
 				break
 			distance=int(input("distance:"))
-			if(terminal1==-1 or terminal2==-1 or distance==-1):
+			if(distance==-1):
 				break
 			for row in range (terminal1,terminal2+1):
 				for column in range (terminal1,terminal2+1):
@@ -53,10 +53,10 @@ while(True):
 			wb.save(book_file)
 		elif(option==4):
 			row_start=int(input("row start:"))
-			if(row_start == -1 or row_end == -1):
+			if(row_start == -1):
 				break
 			row_end=int(input("row end:"))
-			if(row_start == -1 or row_end == -1):
+			if(row_end == -1):
 				break
 			for row in range (row_start,row_end+1):
 				for column in range (row_start,row_end+1):
