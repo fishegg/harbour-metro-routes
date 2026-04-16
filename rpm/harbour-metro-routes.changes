@@ -12,6 +12,18 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Apr 13 2026 fishegg <mail@mail.com> 2.0
+- 更正深圳数据到20251228Correct Shenzhen data to 20251228
+- 改进界面Optimized UI
+
+* Sat Mar 21 2026 fishegg <mail@mail.com> 1.9-1
+- 更正广州及佛山数据到20260213Correct Guangzhou and Foshan data to 20260213
+- 修复更新软件没有数据的问题Fix issue of no data after update
+
+* Thu Mar 19 2026 fishegg <mail@mail.com> 1.8-1
+- 更新广州及佛山数据到20260213Update Guangzhou and Foshan data to 20260213
+- 更新深圳数据到20251228Update Shenzhen data to 20251228
+
 * Tue Sep 2 2025 fishegg <mail@mail.com> 1.6-1
 - 更新广州地铁到20251228
 - Update Guangzhou Metro to 20251228
@@ -20,7 +32,7 @@
 - 更新广州地铁到20250629
 - Update Guangzhou Metro to 20250629
 
-* Sat Jun 27 2025 fishegg <mail@mail.com> 1.3-1
+* Fri Jun 27 2025 fishegg <mail@mail.com> 1.3-1
 - Update Guangzhou Metro
 
 * Sat Apr 12 2025 fishegg <mail@mail.com> 1.1-1

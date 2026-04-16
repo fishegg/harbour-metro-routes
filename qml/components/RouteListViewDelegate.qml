@@ -4,8 +4,8 @@ import harbour.metro.routes.stationmodel 1.0
 
 ListItem {
     id: root
-    contentHeight: column.height > Theme.itemSizeSmall ?
-                       column.height:
+    contentHeight: column.height + Theme.paddingSmall > Theme.itemSizeSmall ?
+                       column.height + Theme.paddingSmall:
                        Theme.itemSizeSmall
     Row {
         height: parent.height
@@ -16,85 +16,220 @@ ListItem {
             height: parent.height
             width: Theme.iconSizeLarge
 
-            Rectangle {
+            GlassItem {
                 id: icon
                 z: 2
                 anchors.verticalCenter: parent.verticalCenter
-                width: Theme.paddingLarge
-                height: width
-                radius: width / 2
+//                width: Theme.paddingLarge
+//                scale: (action === StationModel.GetOff ||
+//                        action === StationModel.Transfer ||
+//                        action === StationModel.Exit ||
+//                        action === StationModel.ExitTransfer) ?
+//                           0.9 :
+//                           1
+//                height: width
+//                radius: width / 2
+                radius: 1
+                falloffRadius: action === StationModel.OnTrain ? 0.15 : 0.22
                 color: line_colour
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            Rectangle {
-                id: upperline
-                visible: action !== StationModel.Depart
-                width: /*(action === StationModel.Transfer) ?
-                           Theme.paddingMedium :*/
-                           Theme.paddingMedium
+            Loader {
+                z: -1
+                width: sourceComponent === component_upperline_glassitem ?
+                           Theme.paddingLarge * 0.5 :
+                           Theme.paddingLarge * 0.75
                 height: root.contentHeight / 2
-                color: line_colour
                 anchors {
                     bottom: icon.verticalCenter
                     horizontalCenter: icon.horizontalCenter
                 }
+                sourceComponent: action !== StationModel.Depart ?
+                                     ((action === StationModel.Transfer ||
+                                      action === StationModel.ExitTransfer) ?
+                                          component_upperline_rectangle :
+                                          component_upperline_glassitem) :
+                                     undefined
             }
-            Rectangle {
-                id: lowerline
-                visible: action !== StationModel.Arrive
-                width: /*(action === StationModel.GetOffTransfer) ?
-                           Theme.paddingMedium :*/
-                           Theme.paddingMedium
-                height: root.contentHeight / 2// + contextmenu.height
-                color: line_colour
+            Loader {
+                z: -1
+                width: sourceComponent === component_lowerline_glassitem ?
+                           Theme.paddingLarge * 0.5 :
+                           Theme.paddingLarge * 0.75
+                height: root.contentHeight / 2
                 anchors {
                     top: icon.verticalCenter
                     horizontalCenter: icon.horizontalCenter
                 }
+                sourceComponent: action !== StationModel.Arrive ?
+                                     ((action === StationModel.GetOff ||
+                                       action === StationModel.Exit) ?
+                                          component_lowerline_rectangle :
+                                          component_lowerline_glassitem) :
+                                     undefined
             }
 
-            Rectangle {
-                id: iconbackground
-                z: (action === StationModel.GetOff ||
-                    action === StationModel.Transfer ||
-                    action === StationModel.ExitTransfer) ?
-                       1 :
-                       -1
-                anchors.centerIn: icon
-                width: (action === StationModel.GetOff ||
-                        action === StationModel.Transfer ||
-                        action === StationModel.Exit ||
-                        action === StationModel.ExitTransfer) ?
-                           icon.width + Theme.paddingMedium :
-                           icon.width + Theme.paddingSmall
-                height: width
-                radius: width / 2
-                color: (action === StationModel.GetOff ||
-                        action === StationModel.Exit) ?
-                           Theme.rgba(stationmodel.linecolourat(index + 1), 0.7) :
-                           ((action === StationModel.Transfer ||
-                            action === StationModel.ExitTransfer) ?
-                                Theme.rgba(stationmodel.linecolourat(index - 1), 0.7) :
-                                Theme.secondaryColor)
+            Component {
+                id: component_upperline_rectangle
+                Rectangle {
+//                    z: -1
+//                    visible: action !== StationModel.Depart
+//                    width: /*(action === StationModel.Transfer) ?
+//                               Theme.paddingMedium :*/
+//                               Theme.paddingLarge * 0.5
+//                    height: root.contentHeight / 2
+    //                ratio: 0.0
+    //                radius: 0
+    //                falloffRadius: 1
+//                    color: Theme.rgba(line_colour, 0.8)
+                    gradient: (action === StationModel.Transfer ||
+                               action === StationModel.ExitTransfer) ?
+                                  gradient_upper_line :
+                                  undefined
+//                    anchors {
+//                        bottom: icon.verticalCenter
+//                        horizontalCenter: icon.horizontalCenter
+//                    }
+                    Gradient {
+                        id: gradient_upper_line
+                        GradientStop {position: 0; color: Theme.rgba(Theme.highlightColor, 0.5)}
+                        GradientStop {position: 0.9; color: Theme.rgba(line_colour, 0.5)}
+                        GradientStop {position: 1; color: Theme.rgba(line_colour, 0.5)}
+                    }
+                }
             }
-            Rectangle {
-                id: upperlinebackground
-                z: -1
-                anchors.centerIn: upperline
-                visible: upperline.visible
-                width: upperline.width + Theme.paddingSmall
-                height: upperline.height
-                color: Theme.secondaryColor
+            Component {
+                id: component_upperline_glassitem
+                GlassItem {
+//                    z: -1
+//                    visible: action !== StationModel.Depart
+//                    width: /*(action === StationModel.Transfer) ?
+//                               Theme.paddingMedium :*/
+//                               Theme.paddingLarge * 0.5
+//                    height: root.contentHeight / 2
+                    ratio: 0.0
+                    radius: 0
+                    falloffRadius: 1
+                    color: line_colour
+//                    anchors {
+//                        bottom: icon.verticalCenter
+//                        horizontalCenter: icon.horizontalCenter
+//                    }
+                    Gradient {
+                        id: gradient_upper_line
+                        GradientStop {position: 0; color: Theme.highlightColor}
+                        GradientStop {position: 0.9; color: line_colour}
+                        GradientStop {position: 1; color: line_colour}
+                    }
+                }
             }
-            Rectangle {
-                id: lowerlinebackground
-                z: -1
-                anchors.centerIn: lowerline
-                visible: lowerline.visible
-                width: lowerline.width + Theme.paddingSmall
-                height: lowerline.height
-                color: Theme.secondaryColor
+            Component {
+                id: component_lowerline_rectangle
+                Rectangle {
+//                    z: -1
+//                    visible: action !== StationModel.Arrive
+//                    width: /*(action === StationModel.GetOffTransfer) ?
+//                               Theme.paddingMedium :*/
+//                               Theme.paddingLarge * 0.5
+//                    height: root.contentHeight / 2// + contextmenu.height
+    //                ratio: 0.0
+    //                radius: 0
+    //                falloffRadius: 1
+//                    color: Theme.rgba(line_colour, 0.8)
+                    gradient: (action === StationModel.GetOff ||
+                               action === StationModel.Exit) ?
+                                  gradient_lower_line :
+                                  undefined
+//                    anchors {
+//                        top: icon.verticalCenter
+//                        horizontalCenter: icon.horizontalCenter
+//                    }
+                    Gradient {
+                        id: gradient_lower_line
+                        GradientStop {position: 0; color: Theme.rgba(line_colour, 0.5)}
+                        GradientStop {position: 0.1; color: Theme.rgba(line_colour, 0.5)}
+                        GradientStop {position: 1; color: Theme.rgba(Theme.highlightColor, 0.5)}
+                    }
+                }
             }
+            Component {
+                id: component_lowerline_glassitem
+                GlassItem {
+//                    z: -1
+//                    visible: action !== StationModel.Arrive
+//                    width: /*(action === StationModel.GetOffTransfer) ?
+//                               Theme.paddingMedium :*/
+//                               Theme.paddingLarge * 0.5
+//                    height: root.contentHeight / 2// + contextmenu.height
+                    ratio: 0.0
+                    radius: 0
+                    falloffRadius: 1
+                    color: line_colour
+//                    anchors {
+//                        top: icon.verticalCenter
+//                        horizontalCenter: icon.horizontalCenter
+//                    }
+                    Gradient {
+                        id: gradient_lower_line
+                        GradientStop {position: 0; color: line_colour}
+                        GradientStop {position: 0.1; color: line_colour}
+                        GradientStop {position: 1; color: Theme.highlightColor}
+                    }
+                }
+            }
+//            GlassItem {
+//                id: iconbackground
+//                z: (action === StationModel.GetOff ||
+//                    action === StationModel.Transfer ||
+//                    action === StationModel.ExitTransfer) ?
+//                       1 :
+//                       -1
+//                anchors.centerIn: icon
+////                width: (action === StationModel.GetOff ||
+////                        action === StationModel.Transfer ||
+////                        action === StationModel.Exit ||
+////                        action === StationModel.ExitTransfer) ?
+////                           Theme.itemSizeMedium :
+////                           Theme.itemSizeMedium
+////                height: width
+//                radius: 1
+//                falloffRadius: 0.22
+//                color: (action === StationModel.GetOff ||
+//                        action === StationModel.Exit) ?
+//                           (preference === 1 ?
+//                                stationmodel_type1.linecolourat(index + 1) :
+//                                stationmodel_type2.linecolourat(index + 1)) :
+//                           ((action === StationModel.Transfer ||
+//                            action === StationModel.ExitTransfer) ?
+//                                (preference === 2 ?
+//                                     stationmodel_type1.linecolourat(index - 1) :
+//                                     stationmodel_type2.linecolourat(index - 1)) :
+//                                line_colour)
+//            }
+//            GlassItem {
+//                id: upperlinebackground
+//                z: -1
+//                anchors.centerIn: upperline
+//                visible: upperline.visible
+//                width: upperline.width
+//                height: upperline.height
+//                ratio: 0
+//                radius: 0
+//                falloffRadius: 1
+//                color: line_colour
+//            }
+//            GlassItem {
+//                id: lowerlinebackground
+//                z: -1
+//                anchors.centerIn: lowerline
+//                visible: lowerline.visible
+//                width: lowerline.width
+//                height: lowerline.height
+//                ratio: 0
+//                radius: 0
+//                falloffRadius: 1
+//                color: line_colour
+//            }
         }
 
         Column {
@@ -112,7 +247,10 @@ ListItem {
                        root.highlighted) ?
                            Theme.highlightColor:
                            Theme.primaryColor
-                text: station_number + " " + station_name
+                font.bold: action === StationModel.OnTrain ? false : true
+                text: station_number === "" ?
+                          station_name :
+                          station_number + " " + station_name
             }
             Loader {
                 id: loader
@@ -130,9 +268,9 @@ ListItem {
             id: actionlabel
             wrapMode: Text.Wrap
             //visible: action != StationModel.OnTrain
-            color: !root.highlighted ?
+            color: /*!root.highlighted ?
                        Theme.secondaryColor :
-                       Theme.secondaryHighlightColor
+                       Theme.secondaryHighlightColor*/namelabel.color
             font.pixelSize: Theme.fontSizeSmall
             text: action === StationModel.Depart ?
 //                      qsTr("在 %1入闸处 入闸<br>乘坐 %2 %3方向 列车").arg(line_name).arg(line_name).arg(towards) :

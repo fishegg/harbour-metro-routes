@@ -511,7 +511,7 @@ bool RouteSearch::getresult(QList<int>* routestationlist)//, const QList<Station
     //int i;
     qDebug() << "destination" << destination;
     int prev = destination;
-    int station_via_count = 0;
+//    int station_via_count = 0;
     routestationlist->clear();
 //    qDebug() << From;
     do
@@ -523,11 +523,11 @@ bool RouteSearch::getresult(QList<int>* routestationlist)//, const QList<Station
         }
         route.push(prev);
         prev = From[prev];
-        station_via_count++;
+//        station_via_count++;
 //        qDebug() << "number" << prev;
 //        qDebug() << "via" << station_via_count;
     }while(prev != source);
-    station_via_count++;
+//    station_via_count++;
     route.push(prev);
     qDebug() << "first loop";
 
@@ -545,6 +545,6 @@ bool RouteSearch::getresult(QList<int>* routestationlist)//, const QList<Station
         qDebug() << station_temp.stationnumber();
     }*/
     //qDebug() << "third loop";
-    qDebug() << "get result finish";
+//    qDebug() << "get result finish, via " << station_via_count;
     return true;
 }

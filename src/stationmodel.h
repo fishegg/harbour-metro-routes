@@ -73,11 +73,15 @@ public:
     StationModel(QObject *parent = 0);
     ~StationModel();
     Q_INVOKABLE void open_current_database();
-    Q_INVOKABLE void open_selected_database(const QString &db_name);
+    Q_INVOKABLE void open_current_database(const QString &connection_name);
+    Q_INVOKABLE void open_selected_database(const QString &db_name, const QString &connection_name);
     Q_INVOKABLE void close_current_database();
     Q_INVOKABLE int getfulllistdata();
     Q_INVOKABLE int getmapdata();
     Q_INVOKABLE int getroutelistdata();
+    Q_INVOKABLE int get_stations_count_pass_by();
+    Q_INVOKABLE int get_interchanges_count_pass_by();
+    Q_INVOKABLE int get_unpaid_interchanges_count_pass_by();
     void addstation(const Station &station);
     void resetmodel();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -99,6 +103,9 @@ private:
     //QList<int> station_index;
     QVector<int> station_index;
     QList<int> routestationlist;
+    int stations_count_pass_by = -1;
+    int interchanges_count_pass_by = -1;
+    int unpaid_interchanges_count_pass_by = -1;
     Graphm systemmap;
     int station_count;
     QList<int>* routestationlist_ptr = &routestationlist;
@@ -108,6 +115,8 @@ private:
     QString lang = locale.name().mid(0,2);
     AppSettings settings;
     int station_name_language;
+signals:
+    void getRouteListDataFinished();
 };
 
 #endif // STATIONMODEL_H

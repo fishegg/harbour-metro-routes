@@ -10,7 +10,9 @@ Item {
     width: parent.width
     height: column1.height
 
-    property var previous_colour: stationmodel.linecolourat(original_index - 1)
+    property var previous_colour: preference === StationModel.LessTimeTransfer ?
+                                      stationmodel_type1.linecolourat(original_index - 1) :
+                                      stationmodel_type2.linecolourat(original_index - 1)
     Column {
         id: column1
         width: parent.width
@@ -34,24 +36,30 @@ Item {
                 id: iconitem
                 height: parent.height
                 width: Theme.paddingSmall
-                Rectangle {
+                GlassItem {
                     id: upperline
                     visible: action !== StationModel.Depart
                     anchors.bottom: parent.verticalCenter
                     height: parent.height / 2 - Theme.paddingSmall
                     width: Theme.paddingSmall
                     //radius: width / 2
+                    ratio: 0
+                    radius: 0.5
+                    falloffRadius: 1
                     color: action === StationModel.Arrive ?
                                Theme.rgba(line_colour, 0.7) :
                                Theme.rgba(previous_colour, 0.7)
                 }
-                Rectangle {
+                GlassItem {
                     id: lowerline
                     visible: action !== StationModel.Arrive
                     anchors.top: parent.verticalCenter
                     height: parent.height / 2 - Theme.paddingSmall
                     width: Theme.paddingSmall
                     //radius: width / 2
+                    ratio: 0
+                    radius: 0.5
+                    falloffRadius: 1
                     color: Theme.rgba(line_colour, 0.7)
                 }
             }
@@ -75,7 +83,7 @@ Item {
                     id: actionlabel
                     width: parent.width
                     //wrapMode: Text.Wrap
-                    //color: Theme.secondaryColor
+                    color: namelabel.color
                     truncationMode: TruncationMode.Fade
                     font.pixelSize: Theme.fontSizeExtraSmall
                     text: action === StationModel.Arrive ?
@@ -123,7 +131,7 @@ Item {
                 id: stationcountlabel
                 //anchors.horizontalCenter: parent.horizontalCenter
                 //width: parent.width
-                color: Theme.secondaryColor
+//                color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeTiny
 //                text: qsTr("%1 个站").arg(count)
                 text: qsTr("%1 stn").arg(count)

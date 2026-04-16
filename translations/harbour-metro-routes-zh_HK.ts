@@ -9,11 +9,11 @@
     </message>
     <message>
         <source>%1 for %2</source>
-        <translation>%1 %2方向</translation>
+        <translation>%1%2方向</translation>
     </message>
     <message>
         <source>%1 stn</source>
-        <translation>%1 个站</translation>
+        <translation>%1个站</translation>
     </message>
 </context>
 <context>
@@ -80,6 +80,26 @@
         <source>Settings</source>
         <translation>设置</translation>
     </message>
+    <message>
+        <source>%1 stations</source>
+        <translation>途经%1个站</translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges</source>
+        <translation>途经%1个站，%2次换乘</translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges&lt;br&gt;%3 interchanges(unpaid)</source>
+        <translation>途经%1个站，%2次换乘&lt;br&gt;%3次出闸换乘</translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges(unpaid)</source>
+        <translation>途经%1个站，%2次出闸换乘</translation>
+    </message>
+    <message>
+        <source>Unpaid area interchange may needs another single journey ticket, which probably leads to extra fare.</source>
+        <translation>出闸换乘可能需要另外购票，全程车费通常会更高</translation>
+    </message>
 </context>
 <context>
     <name>InformationPage</name>
@@ -112,7 +132,7 @@
     <name>RouteListViewDelegate</name>
     <message>
         <source>Enter from %1 entrance&lt;br&gt;Take %2 towards %3</source>
-        <translation>在 %1入闸处 入闸&lt;br&gt;乘坐 %2 %3方向 列车</translation>
+        <translation>在%1入闸处入闸&lt;br&gt;乘坐%2%3方向列车</translation>
     </message>
     <message>
         <source>Get off</source>
@@ -120,7 +140,7 @@
     </message>
     <message>
         <source>Change to %1 towards %2</source>
-        <translation>换乘 %1 %2方向 列车</translation>
+        <translation>换乘%1%2方向列车</translation>
     </message>
     <message>
         <source>Get off, exit</source>
@@ -128,7 +148,7 @@
     </message>
     <message>
         <source>Enter from %1 entrance&lt;br&gt;Change to %2 towards %3</source>
-        <translation>在 %1入闸处 入闸&lt;br&gt;换乘 %2 %3方向 列车</translation>
+        <translation>在%1入闸处入闸&lt;br&gt;换乘%2%3方向列车</translation>
     </message>
     <message>
         <source>Get off, arrive</source>
@@ -137,10 +157,6 @@
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>Guangzhou/Foshan</source>
-        <translation>广州/佛山</translation>
-    </message>
     <message>
         <source>Customized database</source>
         <translation>自定义数据库</translation>
@@ -186,7 +202,7 @@
         <translation>教程</translation>
     </message>
     <message>
-        <source>Shenzhen</source>
+        <source>Shenzhen(Shum Chun)</source>
         <translation>深圳</translation>
     </message>
     <message>
@@ -201,6 +217,10 @@
         <source>If database information displayed, the database should be available.</source>
         <translation>如果显示数据库信息，那么这个数据库应该可用</translation>
     </message>
+    <message>
+        <source>Guangzhou(Canton) &amp; Foshan(Fat Shan)</source>
+        <translation>广州及佛山</translation>
+    </message>
 </context>
 <context>
     <name>StationsListDialog</name>
@@ -214,11 +234,11 @@
     </message>
     <message>
         <source>From </source>
-        <translation>出发站 </translation>
+        <translation>出发站</translation>
     </message>
     <message>
         <source>To </source>
-        <translation>到达站 </translation>
+        <translation>到达站</translation>
     </message>
 </context>
 <context>

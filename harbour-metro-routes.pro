@@ -37,8 +37,8 @@ DISTFILES += qml/harbour-metro-routes.qml \
     qml/pages/InformationPage.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/StationsListDialog.qml \
-    metro_routes_data/guangzhou_foshan_20251228.sqlite \
-    metro_routes_data/shenzhen_20241228.sqlite \
+    metro_routes_data/guangzhou_foshan_20260213.sqlite \
+    metro_routes_data/shenzhen_20251228.sqlite \
     qml/pages/TutorialPage.qml \
     rpm/harbour-metro-routes.changes \
     rpm/harbour-metro-routes.changes.run.in \
@@ -77,8 +77,8 @@ HEADERS += \
 
 #database
 db.path = /usr/share/harbour-metro-routes
-db.files += $$PWD/metro_routes_data/guangzhou_foshan_20251228.sqlite
+db.files += $$PWD/metro_routes_data/guangzhou_foshan_20260213.sqlite
 dbsz.path = /usr/share/harbour-metro-routes
-dbsz.files += $$PWD/metro_routes_data/shenzhen_20241228.sqlite
+dbsz.files += $$PWD/metro_routes_data/shenzhen_20251228.sqlite
 INSTALLS += db \
     dbsz

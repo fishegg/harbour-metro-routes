@@ -34,6 +34,7 @@ import harbour.metro.routes.stationmodel 1.0
 import "../components"
 
 CoverBackground {
+    id: coverbackground
     //Component.onCompleted: coverlistmodel.update()
     /*Label {
         id: label
@@ -68,26 +69,52 @@ CoverBackground {
                 //console.log("count"+stationmodel.rowCount())
                 clear()
                 var previous_append = -1
-                for (var i=0; i<stationmodel.rowCount(); i++) {
-                    if(stationmodel.data(i,StationModel.ActionRole) === StationModel.Depart ||
-                            stationmodel.data(i,StationModel.ActionRole) === StationModel.Transfer ||
-                            stationmodel.data(i,StationModel.ActionRole) === StationModel.ExitTransfer ||
-                            stationmodel.data(i,StationModel.ActionRole) === StationModel.Arrive)
-                    {
-                        var count = (i === stationmodel.rowCount() - 1 ?
-                                         i - previous_append :
-                                         i - previous_append - 1)
-                        previous_append = i
-                        append({//"number": stationmodel.data(i,StationModel.NumRole),
-                                   "station_name": stationmodel.data(i,StationModel.StnNameRole),
-                                   //"station_number": stationmodel.data(i,StationModel.StnNumRole),
-                                   "line_name": stationmodel.data(i,StationModel.LineRole),
-                                   "line_colour": stationmodel.data(i,StationModel.LineColourRole),
-                                   "towards": stationmodel.data(i,StationModel.TowardsRole),
-                                   "action": stationmodel.data(i,StationModel.ActionRole),
-                                   "count": count,
-                                   "original_index": i
-                               })
+                if (preference === StationModel.LessTimeTransfer) {
+                    for (var i=0; i<stationmodel_type1.rowCount(); i++) {
+                        if(stationmodel_type1.data(i,StationModel.ActionRole) === StationModel.Depart ||
+                                stationmodel_type1.data(i,StationModel.ActionRole) === StationModel.Transfer ||
+                                stationmodel_type1.data(i,StationModel.ActionRole) === StationModel.ExitTransfer ||
+                                stationmodel_type1.data(i,StationModel.ActionRole) === StationModel.Arrive)
+                        {
+                            var count = (i === stationmodel_type1.rowCount() - 1 ?
+                                             i - previous_append :
+                                             i - previous_append - 1)
+                            previous_append = i
+                            append({//"number": stationmodel_type1.data(i,StationModel.NumRole),
+                                       "station_name": stationmodel_type1.data(i,StationModel.StnNameRole),
+                                       //"station_number": stationmodel_type1.data(i,StationModel.StnNumRole),
+                                       "line_name": stationmodel_type1.data(i,StationModel.LineRole),
+                                       "line_colour": stationmodel_type1.data(i,StationModel.LineColourRole),
+                                       "towards": stationmodel_type1.data(i,StationModel.TowardsRole),
+                                       "action": stationmodel_type1.data(i,StationModel.ActionRole),
+                                       "count": count,
+                                       "original_index": i
+                                   })
+                        }
+                    }
+                }
+                else {
+                    for (i=0; i<stationmodel_type2.rowCount(); i++) {
+                        if(stationmodel_type2.data(i,StationModel.ActionRole) === StationModel.Depart ||
+                                stationmodel_type2.data(i,StationModel.ActionRole) === StationModel.Transfer ||
+                                stationmodel_type2.data(i,StationModel.ActionRole) === StationModel.ExitTransfer ||
+                                stationmodel_type2.data(i,StationModel.ActionRole) === StationModel.Arrive)
+                        {
+                            count = (i === stationmodel_type2.rowCount() - 1 ?
+                                             i - previous_append :
+                                             i - previous_append - 1)
+                            previous_append = i
+                            append({//"number": stationmodel_type2.data(i,StationModel.NumRole),
+                                       "station_name": stationmodel_type2.data(i,StationModel.StnNameRole),
+                                       //"station_number": stationmodel_type2.data(i,StationModel.StnNumRole),
+                                       "line_name": stationmodel_type2.data(i,StationModel.LineRole),
+                                       "line_colour": stationmodel_type2.data(i,StationModel.LineColourRole),
+                                       "towards": stationmodel_type2.data(i,StationModel.TowardsRole),
+                                       "action": stationmodel_type2.data(i,StationModel.ActionRole),
+                                       "count": count,
+                                       "original_index": i
+                                   })
+                        }
                     }
                 }
             }
@@ -100,7 +127,7 @@ CoverBackground {
 
     CoverActionList {
         id: coverAction
-        enabled: coverlistmodel.count > 4
+        enabled: /*coverlistmodel.count > 4*/coverlistview.contentHeight > coverbackground.height - Theme.paddingMedium * 2
 
         CoverAction {
             iconSource: page === 1 ?
@@ -120,15 +147,54 @@ CoverBackground {
     }
 
     //onStatusChanged: console.log("content height="+coverlistview.contentItem.height)
+//    Connections {
+//        target: stationmodel
+//        onRowsInserted: {
+//            coverlistmodel.update()
+//            //coverlistview.height = coverlistview.height * 0.75
+//            //coverlistview.clip = true
+//            //console.log("content height="+coverlistview.contentItem.height+"height="+coverlistview.height)
+//            if(coverlistmodel.count > 3) {
+//                //coverlistview.height = coverlistview.height * 0.75
+//                coverlistview.clip = true
+//            }
+//            else {
+//                coverlistview.clip = false
+//            }
+//        }
+//    }
+
     Connections {
-        target: stationmodel
+        target: application_window
+        onPreferenceChanged: {
+            coverlistmodel.update()
+            if(coverlistmodel.count > 3) {
+                coverlistview.clip = true
+            }
+            else {
+                coverlistview.clip = false
+            }
+        }
+    }
+
+    Connections {
+        target: stationmodel_type1
         onRowsInserted: {
             coverlistmodel.update()
-            //coverlistview.height = coverlistview.height * 0.75
-            //coverlistview.clip = true
-            //console.log("content height="+coverlistview.contentItem.height+"height="+coverlistview.height)
             if(coverlistmodel.count > 3) {
-                //coverlistview.height = coverlistview.height * 0.75
+                coverlistview.clip = true
+            }
+            else {
+                coverlistview.clip = false
+            }
+        }
+    }
+
+    Connections {
+        target: stationmodel_type2
+        onRowsInserted: {
+            coverlistmodel.update()
+            if(coverlistmodel.count > 3) {
                 coverlistview.clip = true
             }
             else {

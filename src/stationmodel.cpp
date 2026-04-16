@@ -68,13 +68,13 @@ void StationModel::open_current_database(){
         query.next();
         station_count = query.value("station_count").toInt();
         qDebug() << "station count" << station_count;
-        station_index.fill(-1, station_count);
+//        station_index.fill(-1, station_count);
     }
-    getfulllistdata();
-    getmapdata();
+//    getfulllistdata();
+//    getmapdata();
 }
 
-void StationModel::open_selected_database(const QString &db_name){
+void StationModel::open_current_database(const QString &connection_name){
     station_name_language = settings.get_currentIndex_language();
     if(station_name_language == 1){
         lang = "zh";
@@ -85,7 +85,35 @@ void StationModel::open_selected_database(const QString &db_name){
     else{
         lang = locale.name().mid(0,2);
     }
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE", connection_name);
+    QString db_name = settings.get_db_name();
+//    qDebug() << "db_name" << db_name << endl;
+    db.setDatabaseName(db_name);
+    qDebug() << db.databaseName();
+    if(db.open()){
+        qDebug() << "stationmodel current database opened" << endl;
+        QSqlQuery query("SELECT city_zh, name_zh, version, station_count FROM data_information");
+        query.next();
+        station_count = query.value("station_count").toInt();
+        qDebug() << "station count" << station_count;
+        station_index.fill(-1, station_count);
+    }
+    getfulllistdata();
+    getmapdata();
+}
+
+void StationModel::open_selected_database(const QString &db_name, const QString &connection_name){
+    station_name_language = settings.get_currentIndex_language();
+    if(station_name_language == 1){
+        lang = "zh";
+    }
+    else if (station_name_language == 2){
+        lang = "en";
+    }
+    else{
+        lang = locale.name().mid(0,2);
+    }
+    db = QSqlDatabase::addDatabase("QSQLITE", connection_name);
     qDebug() << "db_name" << db_name;
     db.setDatabaseName(db_name);
     if(db.open()){
@@ -149,7 +177,7 @@ int StationModel::getfulllistdata()
                         station_name = query.value("station_name_zh").toString();
                     }
                     else{
-                        station_name = query.value("station_name_en").toString();
+                        station_name = query.value("station_name_en").toString() + "(" + query.value("station_name_zh").toString() + ")";
                     }
                     is_interchange = query.value("is_interchange").toBool();
                     line_count = query.value("line_count").toInt();
@@ -355,6 +383,9 @@ int StationModel::getroutelistdata()
         stationlist.clear();
         endResetModel();*/
         resetmodel();
+        stations_count_pass_by = 0;
+        interchanges_count_pass_by = 0;
+        unpaid_interchanges_count_pass_by = 0;
 
         int route_station_count = routelistrowcount();
         int i = 0;
@@ -396,7 +427,7 @@ int StationModel::getroutelistdata()
                     station_name = query.value("station_name_zh").toString();
                 }
                 else{
-                    station_name = query.value("station_name_en").toString();
+                    station_name = query.value("station_name_en").toString() + "(" + query.value("station_name_zh").toString() + ")";
                 }
                 is_interchange = query.value("is_interchange").toBool();
                 line_count = query.value("line_count").toInt();
@@ -488,7 +519,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -496,7 +527,12 @@ int StationModel::getroutelistdata()
                     //towards = query.value("station_name_zh").toString();
                     if(query.isValid())
                     {
-                        towards = query.value(0).toString();
+                        if(lang == "zh"){
+                            towards = query.value(0).toString();
+                        }
+                        else{
+                            towards = query.value(1).toString();
+                        }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
                                 towards = towards + "/外环";
@@ -546,7 +582,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -554,7 +590,12 @@ int StationModel::getroutelistdata()
                     //towards = query.value("station_name_zh").toString();
                     if(query.isValid())
                     {
-                        towards = query.value(0).toString();
+                        if(lang == "zh"){
+                            towards = query.value(0).toString();
+                        }
+                        else{
+                            towards = query.value(1).toString();
+                        }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
                                 towards = towards + "/外环";
@@ -582,10 +623,12 @@ int StationModel::getroutelistdata()
             }
             else if(i == route_station_count)
             {
+                stations_count_pass_by++;
                 action = Arrive;
             }
             else if(transfer_type == Transfer)
             {
+                interchanges_count_pass_by++;
                 action = Transfer;
                 number_temp = routestationlist.constFirst();
                 qDebug()<<number_temp<<towards_large<<number<<towards_little;
@@ -605,7 +648,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -613,7 +656,12 @@ int StationModel::getroutelistdata()
                     //towards = query.value("station_name_zh").toString();
                     if(query.isValid())
                     {
-                        towards = query.value(0).toString();
+                        if(lang == "zh"){
+                            towards = query.value(0).toString();
+                        }
+                        else{
+                            towards = query.value(1).toString();
+                        }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
                                 towards = towards + "/外环";
@@ -654,7 +702,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -662,7 +710,12 @@ int StationModel::getroutelistdata()
                     //towards = query.value("station_name_zh").toString();
                     if(query.isValid())
                     {
-                        towards = query.value(0).toString();
+                        if(lang == "zh"){
+                            towards = query.value(0).toString();
+                        }
+                        else{
+                            towards = query.value(1).toString();
+                        }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
                                 towards = towards + "/外环";
@@ -691,6 +744,7 @@ int StationModel::getroutelistdata()
             }
             else if(transfer_type == ExitTransfer)
             {
+                unpaid_interchanges_count_pass_by++;
                 action = ExitTransfer;
                 number_temp = routestationlist.constFirst();
                 qDebug()<<number_temp<<towards_large<<number<<towards_little;
@@ -710,7 +764,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -722,7 +776,7 @@ int StationModel::getroutelistdata()
                             towards = query.value("station_name_zh").toString();
                         }
                         else{
-                            towards = query.value("station_name_en").toString();
+                            towards = query.value("station_name_en").toString() + "(" + query.value("station_name_zh").toString() + ")";
                         }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
@@ -764,7 +818,7 @@ int StationModel::getroutelistdata()
                         query.prepare("SELECT station_name_zh FROM stations_list WHERE no_=:number");
                     }
                     else{
-                        query.prepare("SELECT station_name_en FROM stations_list WHERE no_=:number");
+                        query.prepare("SELECT station_name_zh, station_name_en FROM stations_list WHERE no_=:number");
                     }
                     query.bindValue(":number",number_temp);
                     query.exec();
@@ -776,7 +830,7 @@ int StationModel::getroutelistdata()
                             towards = query.value("station_name_zh").toString();
                         }
                         else{
-                            towards = query.value("station_name_en").toString();
+                            towards = query.value("station_name_en").toString() + "(" + query.value("station_name_zh").toString() + ")";
                         }
                         if(is_circle == true&&circle_line_direction == OuterCircle){
                             if(lang == "zh"){
@@ -806,6 +860,7 @@ int StationModel::getroutelistdata()
             }
             else if(is_interchange)
             {
+                stations_count_pass_by++;
                 number_temp = routestationlist.constFirst();
                 if(interchange[0] == number_temp ||
                         interchange[1] == number_temp ||
@@ -827,6 +882,7 @@ int StationModel::getroutelistdata()
                 }
             }
             else {
+                stations_count_pass_by++;
                 action = OnTrain;
             }
             Station station(number,line_count,interchange[0],interchange[1],interchange[2],interchange[3],interchange[4],unpaid_interchange[0],unpaid_interchange[1],unpaid_interchange[2],unpaid_interchange[3],unpaid_interchange[4],station_number,station_name,line_id,line_name,line_colour,is_interchange);
@@ -842,15 +898,32 @@ int StationModel::getroutelistdata()
             addstation(station);
         }
 
-        qDebug() << "get route list data finished";
+        qDebug() << "get route list data finished,stations:" << stations_count_pass_by << ",interchanges:" << interchanges_count_pass_by << ",unpaidinterchanges:" << unpaid_interchanges_count_pass_by;
+//        emit getRouteListDataFinished();
         return Ready;
     }
     else
     {
         qDebug() << "connection open failed";
+//        emit getRouteListDataFinished();
         return Error;
     }
     //db.close();
+}
+
+int StationModel::get_stations_count_pass_by()
+{
+    return stations_count_pass_by;
+}
+
+int StationModel::get_interchanges_count_pass_by()
+{
+    return interchanges_count_pass_by;
+}
+
+int StationModel::get_unpaid_interchanges_count_pass_by()
+{
+    return unpaid_interchanges_count_pass_by;
 }
 
 void StationModel::addstation(const Station &station)

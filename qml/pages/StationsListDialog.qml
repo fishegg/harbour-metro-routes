@@ -54,20 +54,20 @@ Dialog {
         id: listmodel
 
         function update() {
-            console.log("count"+stationmodel.rowCount())
+            console.log("count"+stationmodel_type1.rowCount())
             listview.model = undefined
             clear()
-            for (var i=0; i<stationmodel.fulllistrowcount(); i++) {
+            for (var i=0; i<stationmodel_type1.fulllistrowcount(); i++) {
                 if (searchfield.text === "" ||
                         //stationmodel.fulllistdata(i,StationModel.StnNumRole).toLowerCase().indexOf(searchfield.text.toLowerCase()) === 0 ||
-                        stationmodel.fulllistdata(i,StationModel.StnNumRole).toLowerCase().indexOf(searchfield.text.toLowerCase()) >= 0 ||
-                        stationmodel.fulllistdata(i,StationModel.StnNameRole).indexOf(searchfield.text) >= 0 ||
-                        stationmodel.fulllistdata(i,StationModel.LineRole).indexOf(searchfield.text) === 0) {
-                    append({"number": stationmodel.fulllistdata(i,StationModel.NumRole),
-                               "station_name": stationmodel.fulllistdata(i,StationModel.StnNameRole),
-                               "station_number": stationmodel.fulllistdata(i,StationModel.StnNumRole),
-                               "line_name": stationmodel.fulllistdata(i,StationModel.LineRole),
-                               "line_colour": stationmodel.fulllistdata(i,StationModel.LineColourRole)
+                        stationmodel_type1.fulllistdata(i,StationModel.StnNumRole).toLowerCase().indexOf(searchfield.text.toLowerCase()) >= 0 ||
+                        stationmodel_type1.fulllistdata(i,StationModel.StnNameRole).toLowerCase().indexOf(searchfield.text.toLowerCase()) >= 0 ||
+                        stationmodel_type1.fulllistdata(i,StationModel.LineRole).indexOf(searchfield.text) === 0) {
+                    append({"number": stationmodel_type1.fulllistdata(i,StationModel.NumRole),
+                               "station_name": stationmodel_type1.fulllistdata(i,StationModel.StnNameRole),
+                               "station_number": stationmodel_type1.fulllistdata(i,StationModel.StnNumRole),
+                               "line_name": stationmodel_type1.fulllistdata(i,StationModel.LineRole),
+                               "line_colour": stationmodel_type1.fulllistdata(i,StationModel.LineColourRole)
                            })
                 }
             }
@@ -149,7 +149,7 @@ Dialog {
                             id: fromlabel
                             enabled: selected_from_number !== -1
                             anchors.verticalCenter: parent.verticalCenter
-                            width: parent.width / 2
+                            width: (parent.width - arrow.width) / 2
                             height: Theme.itemSizeExtraSmall
                             Label {
                                 anchors {
@@ -181,11 +181,15 @@ Dialog {
                                 setfromstation()
                             }
                         }
+                        Image {
+                            id: arrow
+                            source: "image://theme/icon-m-forward"
+                        }
                         BackgroundItem {
                             id: tolabel
                             enabled: selected_to_number !== -1
                             anchors.verticalCenter: parent.verticalCenter
-                            width: parent.width / 2
+                            width: (parent.width - arrow.width) / 2
                             height: Theme.itemSizeExtraSmall
                             Label {
                                 anchors {
@@ -223,24 +227,26 @@ Dialog {
                         width: parent.width
                         //inputMethodHints: Qt.ImhDigitsOnly
                         onTextChanged: listmodel.update()
+                        EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                        EnterKey.onClicked: focus = false
                     }
 
                     GridView {
                         id: gridview
-                        visible: searchfield.text === ""
+//                        visible: searchfield.text === ""
                         //anchors.horizontalCenter: parent.horizontalCenter
                         width: parent.width
                         height: contentItem.height > cellHeight * 2.3 ?
                                     cellHeight * 2.3 :
                                     contentItem.height
                         cellWidth: lang === "zh" ? width / 5 : width / 3
-                        cellHeight: Theme.itemSizeLarge
+                        cellHeight: Theme.itemSizeMedium
                         boundsBehavior: Flickable.StopAtBounds
                         clip: height === contentItem.height ?
                                   false :
                                   true
                         model: linemodel
-                        delegate: Item {
+                        delegate: BackgroundItem {
                             height: gridview.cellHeight
                             width: gridview.cellWidth
                             //height: gridicon.height + Theme.paddingLarge
@@ -267,10 +273,11 @@ Dialog {
                                     horizontalAlignment: Text.AlignHCenter
                                 }
                             }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: searchfield.text = line_name
-                            }
+//                            MouseArea {
+//                                anchors.fill: parent
+//                                onClicked: searchfield.text = line_name
+//                            }
+                            onClicked: searchfield.text = line_name
                             Component.onCompleted: {
                                 if(gridicon.width > gridview.cellWidth) {
                                     gridview.cellWidth = gridview.width / Math.floor(gridview.width / gridicon.width)
@@ -422,6 +429,11 @@ Dialog {
 
                 delegate: BackgroundItem {
                     id: listitem
+                    height: (Theme.itemSizeSmall < listicon.height || Theme.itemSizeSmall < namelabel.height) ?
+                                (listicon.height < namelabel.height ?
+                                   namelabel.height :
+                                     listicon.height) :
+                                Theme.itemSizeSmall
                     //highlighted: selected_from_number === number || selected_to_number === number
 
                     /*function delegateinit() {
@@ -482,7 +494,11 @@ Dialog {
                         }
                         //listdialog.accept()
                         //searchfield.focus = true
-                        searchfield.text = ""
+                        if (selected_from_number === -1 || selected_to_number === -1) {
+                            searchfield.focus = true
+                            searchfield.forceActiveFocus()
+                            searchfield.text = ""
+                        }
                         //searchfield.focus = true
                         //searchfield.forceActiveFocus()
                         //if(selected_from_number === -1 || selected_to_number === -1) {
@@ -509,7 +525,7 @@ Dialog {
                             leftMargin: Theme.horizontalPageMargin
                             verticalCenter: parent.verticalCenter
                         }
-                        width: listlinelabel.width + Theme.paddingSmall * 2//Theme.paddingMedium
+                        width: listlinelabel.contentWidth + Theme.paddingSmall * 2//Theme.paddingMedium
                         height: listlinelabel.height + Theme.paddingSmall * 2//namelabel.height
 //                        radius: height / 5
                         radius: Theme.paddingMedium
@@ -519,6 +535,11 @@ Dialog {
                         Label {
                             id: listlinelabel
                             anchors.centerIn: parent
+                            width: if(width > column.width / 3){
+                                       column.width / 3
+                                   }
+                            horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
                             text: line_name
                         }
                     }
@@ -539,11 +560,14 @@ Dialog {
                                    Theme.primaryColor
                         text: selected_from_number === number ?
 //                                  Theme.highlightText(qsTr("出发站 ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
-                                  Theme.highlightText(qsTr("From ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
+//                                  Theme.highlightText(qsTr("From ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
+                                  qsTr("From ") + station_number + " " + station_name :
                                   (selected_to_number === number ?
 //                                       Theme.highlightText(qsTr("目的站 ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
-                                       Theme.highlightText(qsTr("To ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
-                                       Theme.highlightText(station_number + " " + station_name, searchfield.text, Theme.highlightColor)
+//                                       Theme.highlightText(qsTr("To ") + station_number + " " + station_name, searchfield.text, Theme.highlightColor) :
+                                       qsTr("To ") + station_number + " " + station_name :
+//                                       Theme.highlightText(station_number + " " + station_name, searchfield.text, Theme.highlightColor)
+                                       station_number + " " + station_name
                                    )
                     }
 

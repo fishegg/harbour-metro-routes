@@ -9,6 +9,8 @@ Dialog {
 
     property var db_name
 
+    Component.onCompleted: stationmodel.open_current_database()
+
     SilicaFlickable {
         Component.onCompleted: {
             db_name = settings.get_db_name()
@@ -49,6 +51,8 @@ Dialog {
                     leftMargin: Theme.horizontalPageMargin
                     rightMargin: Theme.horizontalPageMargin
                 }
+                width: parent.width - Theme.horizontalPageMargin * 2
+                wrapMode: Text.WordWrap
                 text: settings.get_database_city()
             }
 
@@ -116,7 +120,7 @@ Dialog {
                         text: "中文"
                     }
                     MenuItem {
-                        text: "English or other language"
+                        text: "English or other language(Chinese)"
                     }
                 }
             }
@@ -127,16 +131,16 @@ Dialog {
                 currentIndex: settings.get_currentIndex()
                 menu: ContextMenu {
                     MenuItem {
-                        text: qsTr("Guangzhou/Foshan")
-                        onClicked: db_name = "/usr/share/harbour-metro-routes/guangzhou_foshan_20251228.sqlite"
+                        text: qsTr("Guangzhou(Canton) & Foshan(Fat Shan)")
+                        onClicked: db_name = db_dir + guangzhou_foshan_db_file
                     }
                     MenuItem {
                         text: qsTr("Customized database")
-                        onClicked: db_name = "/home/defaultuser/Documents/"
+                        onClicked: db_name = customized_db_dir
                     }
                     MenuItem {
-                        text: qsTr("Shenzhen")
-                        onClicked: db_name = "/usr/share/harbour-metro-routes/shenzhen_20241228.sqlite"
+                        text: qsTr("Shenzhen(Shum Chun)")
+                        onClicked: db_name = db_dir + shenzhen_db_file
                     }
                     onActivated: {
                         sh_using_database.text = qsTr("Selected database")
@@ -229,4 +233,6 @@ Dialog {
         settings.set_currentIndex(cb_database.currentIndex)
         settings.set_currentIndex_language(cb_language.currentIndex)
     }
+
+    onExited: stationmodel.close_current_database()
 }

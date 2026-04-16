@@ -49,8 +49,14 @@ Page {
     property string to_station_name
     property int from_index
     property int to_index
-    property int preference: 1
+//    property int preference: 1
     property int multiple: 10
+    property int type1_stations_count_pass_by: -1
+    property int type1_interchanges_count_pass_by: -1
+    property int type1_unpaid_interchanges_count_pass_by: -1
+    property int type2_stations_count_pass_by: -1
+    property int type2_interchanges_count_pass_by: -1
+    property int type2_unpaid_interchanges_count_pass_by: -1
 
 //    property string version: "1.3"
     property string conf_version: settings.get_version()
@@ -76,6 +82,22 @@ Page {
             settings.clean_conf()
             settings.set_version(version)
             console.log("accepted "+accepted)
+            if(settings.get_currentIndex() === 0){
+                settings.set_db_name(db_dir + guangzhou_foshan_db_file)
+            }
+            else if(settings.get_currentIndex() === 1){
+                //nothing
+            }
+            else if(settings.get_currentIndex() === 2){
+                settings.set_db_name(db_dir + shenzhen_db_file)
+            }
+//            stationmodel.close_current_database()
+//            stationmodel.open_current_database()
+            stationmodel_type1.close_current_database()
+            stationmodel_type1.open_current_database("LessTimeTransfer")
+            stationmodel_type2.close_current_database()
+            stationmodel_type2.open_current_database("ShortDistance")
+            header.title = stationmodel_type1.getcity()
             pageStack.push(Qt.resolvedUrl("DisclaimerDialog.qml"))
         }
     }
@@ -86,9 +108,13 @@ Page {
             console.log("settings accepted")
             stationmodel.close_current_database()
             stationmodel.open_current_database()
+            stationmodel_type1.close_current_database()
+            stationmodel_type1.open_current_database("LessTimeTransfer")
+            stationmodel_type2.close_current_database()
+            stationmodel_type2.open_current_database("ShortDistance")
             from_number = -1
             to_number = -1
-            header.title = stationmodel.getcity()
+            header.title = stationmodel_type1.getcity()
         })
     }
 
@@ -160,8 +186,19 @@ Page {
 
     function search() {
         if(from_number !== -1 && to_number !== -1) {
-            stationmodel.search(from_number,to_number,preference,multiple)
-            wait()
+            stationmodel_type1.search(from_number,to_number,StationModel.LessTimeTransfer,multiple)
+            stationmodel_type2.search(from_number,to_number,StationModel.ShortDistance,multiple)
+//            stationmodel.search(from_number,to_number,preference,multiple)
+//            wait()
+//            touchblocker.enabled = true
+            stationmodel_type1.getroutelistdata()
+            type1_stations_count_pass_by = stationmodel_type1.get_stations_count_pass_by()
+            type1_interchanges_count_pass_by = stationmodel_type1.get_interchanges_count_pass_by()
+            type1_unpaid_interchanges_count_pass_by = stationmodel_type1.get_unpaid_interchanges_count_pass_by()
+            stationmodel_type2.getroutelistdata()
+            type2_stations_count_pass_by = stationmodel_type2.get_stations_count_pass_by()
+            type2_interchanges_count_pass_by = stationmodel_type2.get_interchanges_count_pass_by()
+            type2_unpaid_interchanges_count_pass_by = stationmodel_type2.get_unpaid_interchanges_count_pass_by()
         }
     }
 
@@ -169,6 +206,10 @@ Page {
         //console.log("count"+stationmodel.rowCount())
         //load_status = stationmodel.getdata()
         stationmodel.open_current_database()
+        console.log("stationmodel_type1.open")
+        stationmodel_type1.open_current_database(StationModel.LessTimeTransfer)
+        console.log("stationmodel_type2.open")
+        stationmodel_type2.open_current_database(StationModel.ShortDistance)
         header.title = stationmodel.getcity()
     }
 
@@ -179,6 +220,15 @@ Page {
         //onRowsInserted: console.log("count"+stationmodel.rowCount())
     }
 
+    Connections {
+        target: stationmodel_type1
+    }
+
+    Connections {
+        target: stationmodel_type2
+//        onGetRouteListDataFinished: touchblocker.enabled = false
+    }
+
     Timer {
         id: timer
         interval: 300
@@ -186,7 +236,18 @@ Page {
         onTriggered: {
             //stationmodel.getfulllistdata()
             //appwindow.load_status = stationmodel.getmapdata()
-            stationmodel.getroutelistdata()
+            console.log("-------------")
+            stationmodel_type1.getroutelistdata()
+            console.log("----------------------")
+            type1_stations_count_pass_by = stationmodel_type1.get_stations_count_pass_by()
+            type1_interchanges_count_pass_by = stationmodel_type1.get_interchanges_count_pass_by()
+            type1_unpaid_interchanges_count_pass_by = stationmodel_type1.get_unpaid_interchanges_count_pass_by()
+            console.log("-------------")
+            stationmodel_type2.getroutelistdata()
+            console.log("----------------------")
+            type2_stations_count_pass_by = stationmodel_type2.get_stations_count_pass_by()
+            type2_interchanges_count_pass_by = stationmodel_type2.get_interchanges_count_pass_by()
+            type2_unpaid_interchanges_count_pass_by = stationmodel_type2.get_unpaid_interchanges_count_pass_by()
             touchblocker.enabled = false
         }
     }
@@ -235,9 +296,10 @@ Page {
                 text: qsTr("Swap start and destination")
                 onClicked: {
                     swapfromto()
-                    stationmodel.search(from_number,to_number,preference)
+//                    stationmodel.search(from_number,to_number,preference)
+                    search()
                     //stationmodel.getroutelistdata()
-                    wait()
+//                    wait()
                 }
             }
         }
@@ -253,9 +315,10 @@ Page {
                 onClicked: {
                     swapfromto()
                     flickable.scrollToTop()
-                    stationmodel.search(from_number,to_number,preference)
+//                    stationmodel.search(from_number,to_number,preference)
+                    search()
                     //stationmodel.getroutelistdata()
-                    wait()
+//                    wait()
                 }
             }
             MenuItem {
@@ -351,6 +414,39 @@ Page {
                 sourceComponent: typebuttoncomponent
             }
 
+            Component {
+                id: component_row_tips
+                Row {
+                    id: row_tips
+                    spacing: Theme.paddingSmall
+                    Image {
+                        id: tips_icon
+                        source: preference === StationModel.LessTimeTransfer && type1_unpaid_interchanges_count_pass_by > 0 ||
+                                preference === StationModel.ShortDistance && type2_unpaid_interchanges_count_pass_by > 0 ?
+                                    "image://theme/icon-lock-information" :
+                                    ""
+                    }
+                    Label {
+                        width: parent.width - tips_icon.width - Theme.paddingSmall
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        wrapMode: Text.WordWrap
+                        text: /*preference === StationModel.LessTimeTransfer && type1_unpaid_interchanges_count_pass_by > 0 ||
+                              preference === StationModel.ShortDistance && type2_unpaid_interchanges_count_pass_by > 0 ?*/
+                                  qsTr("Unpaid area interchange may needs another single journey ticket, which probably leads to extra fare.")/* :
+                                  ""*/
+                    }
+                }
+            }
+
+            Loader {
+                width: parent.width - Theme.paddingLarge * 2
+                anchors.horizontalCenter : parent.horizontalCenter
+                sourceComponent: preference === StationModel.LessTimeTransfer && type1_unpaid_interchanges_count_pass_by > 0 ||
+                                 preference === StationModel.ShortDistance && type2_unpaid_interchanges_count_pass_by > 0 ?
+                                     component_row_tips :
+                                     undefined
+            }
+
             SilicaListView {
                 id: listview
                 width: parent.width
@@ -360,7 +456,10 @@ Page {
                 //visible: count < 150
                 //boundsBehavior: Flickable.StopAtBounds
 
-                model: stationmodel
+//                model: stationmodel
+                model: preference === StationModel.LessTimeTransfer ?
+                           stationmodel_type1 :
+                           stationmodel_type2
                 /*ListModel {
                     id: listmodel
 
@@ -460,6 +559,7 @@ Page {
 //                width: parent.width / 4
                 width: parent.width / 2
                 //highlighted: preference === 1
+                height: /*cl_type1.height*/Theme.itemSizeExtraLarge
                 Rectangle {
                     id: selectedindicator1
                     visible: preference === StationModel.LessTimeTransfer
@@ -467,17 +567,74 @@ Page {
                     color: Theme.rgba(Theme.secondaryHighlightColor, Theme.highlightBackgroundOpacity)
                     //color: Theme.secondaryHighlightColor
                 }
-                Label {
+                Column {
+                    id: cl_type1
+                    width: parent.width
                     anchors.centerIn: parent
-                    color: type1button.highlighted || selectedindicator1.visible ?
-                               Theme.highlightColor :
-                               Theme.primaryColor
-//                    text: qsTr("换乘少")
-                    text: qsTr("Less interchanges")
+                    Label {
+                        id: lb_type1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: type1button.highlighted || selectedindicator1.visible ?
+                                   Theme.highlightColor :
+                                   Theme.primaryColor
+    //                    text: qsTr("换乘少")
+                        text: qsTr("Less interchanges")
+                    }
+                    Label {
+                        id: lb_type1_stations_count_pass_by
+//                        anchors.top: parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: text === "" ? 0 : contentHeight
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        horizontalAlignment: Text.AlignHCenter
+                        color: type1button.highlighted || selectedindicator1.visible ?
+                                   Theme.primaryColor :
+                                   Theme.secondaryColor
+                        text: {
+                            if (type1_stations_count_pass_by > 0 &&
+                                    type1_interchanges_count_pass_by === 0 &&
+                                    type1_unpaid_interchanges_count_pass_by === 0) {
+//                                "途经" + type1_stations_count_pass_by + "个站"
+                                qsTr("%1 stations").arg(type1_stations_count_pass_by)
+                            }
+                            else if (type1_stations_count_pass_by > 0 &&
+                                     type1_interchanges_count_pass_by > 0 &&
+                                     type1_unpaid_interchanges_count_pass_by === 0) {
+//                                "途经" + type1_stations_count_pass_by + "个站，" + type1_interchanges_count_pass_by + "次换乘"
+                                qsTr("%1 stations<br>%2 interchanges").arg(type1_stations_count_pass_by).arg(type1_interchanges_count_pass_by)
+                            }
+                            else if (type1_interchanges_count_pass_by === 0 &&
+                                     type1_unpaid_interchanges_count_pass_by > 0) {
+                                qsTr("%1 stations<br>%2 interchanges(unpaid)").arg(type1_stations_count_pass_by).arg(type1_unpaid_interchanges_count_pass_by)
+                            }
+                            else if (type1_interchanges_count_pass_by > 0 &&
+                                     type1_unpaid_interchanges_count_pass_by > 0) {
+//                                "途经" + type1_stations_count_pass_by + "个站，" + type1_interchanges_count_pass_by + "次换乘<br>" +  type1_unpaid_interchanges_count_pass_by + "次出闸换乘"
+                                qsTr("%1 stations<br>%2 interchanges<br>%3 interchanges(unpaid)").arg(type1_stations_count_pass_by).arg(type1_interchanges_count_pass_by).arg(type1_unpaid_interchanges_count_pass_by)
+                            }
+                            else {
+                                ""
+                            }
+                        }
+                    }
                 }
+//                    Label {
+//                        id: lb_interchanges_count_pass_by
+//                        anchors.top: parent.top
+//                        anchors.right: parent.right
+//                        text: interchanges_count_pass_by + "次换乘"
+//                    }
+//                    Label {
+//                        id: lb_unpaid_interchanges_count_pass_by
+//                        anchors.top: lb_stations_count_pass_by.bottom
+//                        anchors.horizontalCenter: parent.horizontalCenter
+//                        text: unpaid_interchanges_count_pass_by + "次出闸换乘"
+//                    }
                 onReleased: {
                     setpreference(StationModel.LessTimeTransfer)
-                    search()
+//                    search()
+//                    stations_count_pass_by = stationmodel.get_stations_count_pass_by()
+//                    listview.model = stationmodel_type1
                 }
             }
             BackgroundItem {
@@ -485,6 +642,7 @@ Page {
 //                width: parent.width / 4
                 width: parent.width / 2
                 //highlighted: preference === 2
+                height: /*cl_type2.height*/Theme.itemSizeExtraLarge
                 Rectangle {
                     id: selectedindicator2
                     visible: preference === StationModel.ShortDistance
@@ -492,17 +650,72 @@ Page {
                     color: Theme.rgba(Theme.secondaryHighlightColor, Theme.highlightBackgroundOpacity)
                     //color: Theme.secondaryHighlightColor
                 }
-                Label {
+                Column {
+                    id: cl_type2
+                    width: parent.width
                     anchors.centerIn: parent
-                    color: type2button.highlighted || selectedindicator2.visible ?
-                               Theme.highlightColor :
-                               Theme.primaryColor
-//                    text: qsTr("站数少")
-                    text: qsTr("Less stations")
+                    Label {
+                        id: lb_type2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: type2button.highlighted || selectedindicator2.visible ?
+                                   Theme.highlightColor :
+                                   Theme.primaryColor
+    //                    text: qsTr("站数少")
+                        text: qsTr("Less stations")
+                    }
+                    Label {
+                        id: lb_type2_stations_count_pass_by
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        height: text === "" ? 0 : contentHeight
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        horizontalAlignment: Text.AlignHCenter
+                        color: type2button.highlighted || selectedindicator2.visible ?
+                                   Theme.primaryColor :
+                                   Theme.secondaryColor
+                        text: {
+                            if (type2_stations_count_pass_by > 0 &&
+                                    type2_interchanges_count_pass_by === 0 &&
+                                    type2_unpaid_interchanges_count_pass_by === 0) {
+//                                "途经" + type2_stations_count_pass_by + "个站"
+                                qsTr("%1 stations").arg(type2_stations_count_pass_by)
+                            }
+                            else if (type2_stations_count_pass_by > 0 &&
+                                     type2_interchanges_count_pass_by > 0 &&
+                                     type2_unpaid_interchanges_count_pass_by === 0) {
+//                                "途经" + type2_stations_count_pass_by + "个站，" + type2_interchanges_count_pass_by + "次换乘"
+                                qsTr("%1 stations<br>%2 interchanges").arg(type2_stations_count_pass_by).arg(type2_interchanges_count_pass_by)
+                            }
+                            else if (type2_interchanges_count_pass_by === 0 &&
+                                     type2_unpaid_interchanges_count_pass_by > 0) {
+                                qsTr("%1 stations<br>%2 interchanges(unpaid)").arg(type2_stations_count_pass_by).arg(type2_unpaid_interchanges_count_pass_by)
+                            }
+                            else if (type2_interchanges_count_pass_by > 0 &&
+                                    type2_unpaid_interchanges_count_pass_by > 0) {
+//                                "途经" + type2_stations_count_pass_by + "个站，" + type2_interchanges_count_pass_by + "次换乘<br>" +  type2_unpaid_interchanges_count_pass_by + "次出闸换乘"
+                                qsTr("%1 stations<br>%2 interchanges<br>%3 interchanges(unpaid)").arg(type2_stations_count_pass_by).arg(type2_interchanges_count_pass_by).arg(type2_unpaid_interchanges_count_pass_by)
+                            }
+                            else {
+                                ""
+                            }
+                        }
+                    }
                 }
+//                    Label {
+//                        id: lb_interchanges_count_pass_by
+//                        anchors.top: parent.top
+//                        anchors.right: parent.right
+//                        text: interchanges_count_pass_by + "次换乘"
+//                    }
+//                    Label {
+//                        id: lb_unpaid_interchanges_count_pass_by
+//                        anchors.top: lb_stations_count_pass_by.bottom
+//                        anchors.horizontalCenter: parent.horizontalCenter
+//                        text: unpaid_interchanges_count_pass_by + "次出闸换乘"
+//                    }
                 onReleased: {
                     setpreference(StationModel.ShortDistance)
-                    search()
+//                    search()
+//                    listview.model = stationmodel_type2
                 }
             }
 //            BackgroundItem {

@@ -11,7 +11,7 @@ Label {
 
 总之什么事都不关作者事。
 
-用户选择“接受”选项即视为同意本免责声明的内容，如果不同意请退出程序。
+用户选择“确定”选项即视为同意本免责声明的内容，如果不同意请退出程序。
 
 Metro Routes (\"this app\") is unofficial app. Data of this app are collected from metro map manually. The developer does not take gurantee on data accuracy and up-to-date. It is just for reference. Everything should subject to actual situation.
 

@@ -80,6 +80,26 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 stations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges&lt;br&gt;%3 interchanges(unpaid)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 stations&lt;br&gt;%2 interchanges(unpaid)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unpaid area interchange may needs another single journey ticket, which probably leads to extra fare.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InformationPage</name>
@@ -138,10 +158,6 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <source>Guangzhou/Foshan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Customized database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,10 +202,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shenzhen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Selected database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -199,6 +211,14 @@
     </message>
     <message>
         <source>If database information displayed, the database should be available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guangzhou(Canton) &amp; Foshan(Fat Shan)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shenzhen(Shum Chun)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
